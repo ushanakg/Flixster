@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         AsyncHttpClient client = new AsyncHttpClient();
-        // Get the movies that are playing now in the form of a JSON object
+        // Get the movies that are playing now in the form of a JSON object and convert them to Movie objects
         client.get(NOW_PLAYING_URL, new JsonHttpResponseHandler() {
 
             @Override

@@ -1,7 +1,9 @@
 package com.example.flixster.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.flixster.MainActivity;
+import com.example.flixster.MovieDetailsActivity;
 import com.example.flixster.R;
 import com.example.flixster.models.Movie;
 
+import org.parceler.Parcels;
+
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
@@ -54,7 +61,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         return movies.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    // ViewHolder class holds all the views needed to display a movie
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tvTitle;
         TextView tvOverview;
@@ -67,21 +75,50 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
 
+            // make each movie description clickable
+            itemView.setOnClickListener(this);
         }
 
+        // binds the information of a specific movie to a viewholder so it can be displayed
         public void bind(Movie movie) {
+            // set title and overview text for movie
             tvOverview.setText(movie.getOverview());
             tvTitle.setText(movie.getTitle());
 
             //logic to determine whether phone is portrait (poster) or landscape (backdrop)
             String imageURL;
+            int ph;
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 imageURL = movie.getBackdropPath();
+                ph = R.drawable.flicks_backdrop_placeholder;
             } else {
                 imageURL = movie.getPosterPath();
+                ph = R.drawable.flicks_movie_placeholder;
             }
 
-            Glide.with(context).load(imageURL).into(ivPoster);
+            // set poster/backdrop image for the movie
+            Glide.with(context).load(imageURL).placeholder(ph).transform(new RoundedCornersTransformation(25, 0)).into(ivPoster);
+        }
+
+        // when clicked, a viewholder will show a new activity
+        @Override
+        public void onClick(View view) {
+            //get position of current movie/viewholder
+            int position = getAdapterPosition();
+
+            //make sure position is valid
+            if (position != RecyclerView.NO_POSITION) {
+
+                Intent i = new Intent(context, MovieDetailsActivity.class);
+                Movie movie = movies.get(position);
+                //pass the current movie to the next activity
+                String KEY = Movie.class.getSimpleName();
+                i.putExtra("KEY", KEY);
+                i.putExtra(KEY, Parcels.wrap(movie)); //need to serialize because it's an class we wrote
+
+                //use the intent to show the new activity starting from the desired context
+                context.startActivity(i);
+            }
         }
     }
 }
