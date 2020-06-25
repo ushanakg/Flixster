@@ -1,5 +1,6 @@
 package com.example.flixster.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -18,6 +19,8 @@ import com.bumptech.glide.Glide;
 import com.example.flixster.MainActivity;
 import com.example.flixster.MovieDetailsActivity;
 import com.example.flixster.R;
+import com.example.flixster.databinding.ActivityMainBinding;
+import com.example.flixster.databinding.ItemMovieBinding;
 import com.example.flixster.models.Movie;
 
 import org.parceler.Parcels;
@@ -28,10 +31,10 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
-    Context context;
+    Activity context;
     List<Movie> movies;
 
-    public MovieAdapter(Context context, List<Movie> movies) {
+    public MovieAdapter(Activity context, List<Movie> movies) {
         this.context = context;
         this.movies = movies;
     }
@@ -40,8 +43,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //from the current context, use the item_movie.xml file to "inflate" a new view
-        View movieView = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false);
+        //from the current context, inflate a new view
+        ItemMovieBinding binding = ItemMovieBinding.inflate(context.getLayoutInflater(), parent, false);
+        View movieView = binding.getRoot();
         // viewholder is holding a view that can display a movie (currently has no data)
         return new ViewHolder(movieView);
     }
@@ -64,16 +68,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     // ViewHolder class holds all the views needed to display a movie
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView tvTitle;
-        TextView tvOverview;
-        ImageView ivPoster;
+        ItemMovieBinding vhBinding;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvOverview = itemView.findViewById(R.id.tvOverview);
-            ivPoster = itemView.findViewById(R.id.ivPoster);
+            vhBinding = ItemMovieBinding.bind(itemView);
 
             // make each movie description clickable
             itemView.setOnClickListener(this);
@@ -82,8 +82,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         // binds the information of a specific movie to a viewholder so it can be displayed
         public void bind(Movie movie) {
             // set title and overview text for movie
-            tvOverview.setText(movie.getOverview());
-            tvTitle.setText(movie.getTitle());
+            vhBinding.tvOverview.setText(movie.getOverview());
+            vhBinding.tvTitle.setText(movie.getTitle());
 
             //logic to determine whether phone is portrait (poster) or landscape (backdrop)
             String imageURL;
@@ -97,7 +97,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             }
 
             // set poster/backdrop image for the movie
-            Glide.with(context).load(imageURL).placeholder(ph).transform(new RoundedCornersTransformation(25, 0)).into(ivPoster);
+            Glide.with(context).load(imageURL).placeholder(ph).transform(new RoundedCornersTransformation(25, 0)).into(vhBinding.ivPoster);
         }
 
         // when clicked, a viewholder will show a new activity

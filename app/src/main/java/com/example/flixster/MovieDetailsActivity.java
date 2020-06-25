@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.media.Rating;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.flixster.databinding.ActivityMainBinding;
+import com.example.flixster.databinding.ActivityMovieDetailsBinding;
 import com.example.flixster.models.Movie;
 
 import org.parceler.Parcels;
@@ -23,7 +26,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_details);
+
+        ActivityMovieDetailsBinding binding = ActivityMovieDetailsBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         // unwrapping the movie that was passed through an intent while opening this activity
         String KEY = getIntent().getStringExtra("KEY");
@@ -31,15 +37,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
         // confirm movie has unwrapped
         Log.d("MovieDetailsActivity", String.format("Movie title: %s", movie.getTitle()));
 
-        tvTitle = findViewById(R.id.tvTitle);
-        rbVoteAverage = findViewById(R.id.rbVoteAverage);
-        tvOverview = findViewById(R.id.tvOverview);
-
         // set title and overview text
-        tvTitle.setText(movie.getTitle());
-        tvOverview.setText(movie.getOverview());
+        binding.tvTitle.setText(movie.getTitle());
+        binding.tvOverview.setText(movie.getOverview());
         // VoteAverage is [0, 10] so divide by 2 to get num stars for rating
-        rbVoteAverage.setRating((float) (movie.getVoteAverage() / 2.0));
+        binding.rbVoteAverage.setRating((float) (movie.getVoteAverage() / 2.0));
 
     }
 }

@@ -6,10 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flixster.adapters.MovieAdapter;
+import com.example.flixster.databinding.ActivityMainBinding;
 import com.example.flixster.models.Movie;
 
 import org.json.JSONArray;
@@ -32,19 +34,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        RecyclerView rvMovies = findViewById(R.id.rvMovies);
+
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
         movies = new ArrayList<>();
 
         //Create the adapter
         final MovieAdapter movieAdapter = new MovieAdapter(this, movies);
-
         //set the adapter on the RecyclerView
-        rvMovies.setAdapter(movieAdapter);
-
+        binding.rvMovies.setAdapter(movieAdapter);
         //set a LayoutManager on the RecyclerView
-        rvMovies.setLayoutManager(new LinearLayoutManager(this));
-
+        binding.rvMovies.setLayoutManager(new LinearLayoutManager(this));
 
         AsyncHttpClient client = new AsyncHttpClient();
         // Get the movies that are playing now in the form of a JSON object and convert them to Movie objects
