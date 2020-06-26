@@ -13,20 +13,21 @@
         android:id="@+id/titleLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
         android:gravity="center">
 
-        <View android:id="@+id/separator"
-            android:background="#a8dadc"
+        <View
+            android:id="@+id/separator"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
-            android:layout_marginStart="8dp"
             android:layout_above="@id/tvOverview"
+            android:layout_marginStart="8dp"
             android:layout_toEndOf="@+id/ivPoster"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="#a8dadc" />
 
         <TextView
             android:id="@+id/tvTitle"
@@ -34,21 +35,22 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:gravity="center"
             android:fontFamily="sans-serif-black"
+            android:gravity="center"
             android:textColor="#f1faee"
             android:textSize="24sp"
             android:textStyle="italic"
             tools:text="Onward" />
 
-        <View android:id="@+id/separator2"
-            android:background="#a8dadc"
+        <View
+            android:id="@+id/separator2"
             android:layout_width="wrap_content"
             android:layout_height="2dp"
+            android:layout_alignParentEnd="true"
             android:layout_marginEnd="8dp"
             android:layout_toEndOf="@+id/tvTitle"
-            android:layout_alignParentEnd="true"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="#a8dadc" />
     </LinearLayout>
 
     <RatingBar
@@ -83,8 +85,8 @@
         android:id="@+id/videoLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/rbVoteAverage" >
+        android:layout_below="@+id/rbVoteAverage"
+        android:layout_marginTop="5dp">
 
         <ImageView
             android:id="@+id/ivBackdrop"
@@ -95,17 +97,16 @@
             android:adjustViewBounds="true"
             android:elevation="2dp"
             android:scaleType="fitXY"
-            tools:srcCompat="@drawable/flicks_backdrop_placeholder" />
+            app:srcCompat="@drawable/flicks_backdrop_placeholder" />
 
         <ImageView
             android:id="@+id/ivPlayButton"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:adjustViewBounds="true"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:alpha=".8"
             android:scaleType="fitXY"
+            android:translationZ="90dp"
             app:srcCompat="@drawable/playbutton" />
 
     </RelativeLayout>

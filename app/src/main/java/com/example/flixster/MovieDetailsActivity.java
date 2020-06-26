@@ -1,6 +1,7 @@
 package com.example.flixster;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -43,6 +44,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         // VoteAverage is [0, 10] so divide by 2 to get num stars for rating
         binding.rbVoteAverage.setRating((float) (movie.getVoteAverage() / 2.0));
         Glide.with(this).load(movie.getBackdropPath()).transform(new RoundedCornersTransformation(25, 0)).placeholder(R.drawable.flicks_backdrop_placeholder).into(binding.ivBackdrop);
+        binding.ivPlayButton.bringToFront();
 
         binding.ivBackdrop.setOnTouchListener(new View.OnTouchListener() {
             @Override

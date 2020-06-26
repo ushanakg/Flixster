@@ -100,6 +100,7 @@
         android:adjustViewBounds="true"
         android:alpha=".8"
         android:scaleType="fitXY"
+        android:translationZ="90dp"
         app:srcCompat="@drawable/playbutton" />
 
 </RelativeLayout>
