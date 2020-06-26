@@ -112,9 +112,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 Intent i = new Intent(context, MovieDetailsActivity.class);
                 Movie movie = movies.get(position);
                 //pass the current movie to the next activity
-                String KEY = Movie.class.getSimpleName();
-                i.putExtra("KEY", KEY);
-                i.putExtra(KEY, Parcels.wrap(movie)); //need to serialize because it's an class we wrote
+                i.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie)); //need to serialize because it's an class we wrote
 
                 //use the intent to show the new activity starting from the desired context
                 context.startActivity(i);
