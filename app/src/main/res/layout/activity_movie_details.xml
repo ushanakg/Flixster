@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
         android:layout_below="@+id/ivBackdrop"
         android:gravity="center">
 
@@ -59,7 +60,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:numStars="5"
-        android:progressTint="#457b9d"
+        android:progressBackgroundTint="#000000"
+        android:progressTint="#e63946"
         android:stepSize="0.5" />
 
     <TextView
@@ -84,6 +86,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
         android:adjustViewBounds="true"
+        android:elevation="5dp"
         android:scaleType="fitXY"
         tools:srcCompat="@drawable/flicks_backdrop_placeholder" />
 

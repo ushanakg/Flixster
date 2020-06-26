@@ -2,16 +2,17 @@ package com.example.flixster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.Rating;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.RatingBar;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.example.flixster.databinding.ActivityMainBinding;
 import com.example.flixster.databinding.ActivityMovieDetailsBinding;
 import com.example.flixster.models.Movie;
 
@@ -41,20 +42,34 @@ public class MovieDetailsActivity extends AppCompatActivity {
         binding.tvOverview.setText(movie.getOverview());
         // VoteAverage is [0, 10] so divide by 2 to get num stars for rating
         binding.rbVoteAverage.setRating((float) (movie.getVoteAverage() / 2.0));
-        Glide.with(this).load(movie.getBackdropPath()).placeholder(R.drawable.flicks_backdrop_placeholder).into(binding.ivBackdrop);
+        Glide.with(this).load(movie.getBackdropPath()).transform(new RoundedCornersTransformation(25, 0)).placeholder(R.drawable.flicks_backdrop_placeholder).into(binding.ivBackdrop);
 
-        binding.ivBackdrop.setOnClickListener(new View.OnClickListener() {
+        binding.ivBackdrop.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                onBackdropClick(view);
+            public boolean onTouch(View view, MotionEvent event) {
+                ImageView i = (ImageView) view;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    // release
+                    i.clearColorFilter();
+                    openMovieTrailerActivity(view);
+                    return false;
+
+                } else if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    // pressed
+                    //darken image when the user clicks
+                    i.setColorFilter(Color.parseColor("#99000000"));
+                    return true;
+                }
+
+                return false;
             }
         });
 
 
-
     }
 
-    private void onBackdropClick(View view) {
+    private void openMovieTrailerActivity(View view) {
         if (movie.getVideoID() != "") {
 
             //if the movie has a videoID, use an intent to open a MovieTrailerActivity and pass that videoID to the new activity

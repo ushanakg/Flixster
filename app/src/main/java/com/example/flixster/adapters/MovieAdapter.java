@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -26,6 +28,8 @@ import com.example.flixster.models.Movie;
 import org.parceler.Parcels;
 
 import java.util.List;
+
+import javax.security.auth.login.LoginException;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -66,7 +70,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     }
 
     // ViewHolder class holds all the views needed to display a movie
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener {
 
         ItemMovieBinding vhBinding;
 
@@ -76,7 +80,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             vhBinding = ItemMovieBinding.bind(itemView);
 
             // make each movie description clickable
-            itemView.setOnClickListener(this);
+            itemView.setOnTouchListener(this);
+            //itemView.setOnClickListener(this);
         }
 
         // binds the information of a specific movie to a viewholder so it can be displayed
@@ -101,8 +106,44 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         }
 
         // when clicked, a viewholder will show a new activity
-        @Override
+        /*@Override
         public void onClick(View view) {
+            //get position of current movie/viewholder
+            int position = getAdapterPosition();
+
+            //make sure position is valid
+            if (position != RecyclerView.NO_POSITION) {
+
+                Intent i = new Intent(context, MovieDetailsActivity.class);
+                Movie movie = movies.get(position);
+                //pass the current movie to the next activity
+                i.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie)); //need to serialize because it's an class we wrote
+
+                //use the intent to show the new activity starting from the desired context
+                context.startActivity(i);
+            }
+        }*/
+
+        @Override
+        public boolean onTouch(View view, MotionEvent event) {
+            Log.d("ViewHolder", "touched view: " + view.getClass().getName());
+
+            if(event.getAction() == MotionEvent.ACTION_UP) {
+                // release
+                vhBinding.tint.setBackgroundColor(Color.parseColor("#00000000"));
+                openMovieDetailsActivity();
+                return false;
+
+            } else if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                // pressed
+                vhBinding.tint.setBackgroundColor(Color.parseColor("#44000000"));
+                return true;
+            }
+
+            return false;
+        }
+
+        private void openMovieDetailsActivity() {
             //get position of current movie/viewholder
             int position = getAdapterPosition();
 
