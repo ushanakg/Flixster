@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#000000">
+    android:background="#1d3557">
 
     <ImageView
         android:id="@+id/ivPoster"
@@ -16,27 +16,55 @@
         android:layout_marginTop="5dp"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="5dp"
+        android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/ivPoster"
-        android:fontFamily="sans-serif-black"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        tools:text="Onward" />
+        android:gravity="center">
+
+        <View android:id="@+id/separator"
+            android:background="#a8dadc"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_marginStart="8dp"
+            android:layout_above="@id/tvOverview"
+            android:layout_toEndOf="@+id/ivPoster"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:fontFamily="sans-serif-black"
+            android:textColor="#f1faee"
+            android:textSize="24sp"
+            android:textStyle="italic"
+            tools:text="Onward" />
+
+        <View android:id="@+id/separator2"
+            android:background="#a8dadc"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toEndOf="@+id/tvTitle"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvOverview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTitle"
+        android:layout_below="@+id/titleLayout"
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/ivPoster"
-        android:textColor="#FFFFFF"
+        android:textColor="#f1faee"
         tools:text="In a suburban fantasy world, two teenage elf brothers embark on an extraordinary quest to discover if there is still a little magic left out there." />
 </RelativeLayout>

@@ -41,7 +41,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         binding.tvOverview.setText(movie.getOverview());
         // VoteAverage is [0, 10] so divide by 2 to get num stars for rating
         binding.rbVoteAverage.setRating((float) (movie.getVoteAverage() / 2.0));
-        Glide.with(this).load(movie.getBackdropPath()).transform(new RoundedCornersTransformation(25, 0)).placeholder(R.drawable.flicks_backdrop_placeholder).into(binding.ivBackdrop);
+        Glide.with(this).load(movie.getBackdropPath()).placeholder(R.drawable.flicks_backdrop_placeholder).into(binding.ivBackdrop);
 
         binding.ivBackdrop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +49,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 onBackdropClick(view);
             }
         });
+
+
 
     }
 

@@ -5,12 +5,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerHorizontal="true"
-    android:background="#000000"
+    android:background="#1d3557"
     tools:context=".MovieDetailsActivity">
 
 
+    <LinearLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ivBackdrop"
+        android:gravity="center">
+
+        <View android:id="@+id/separator"
+            android:background="#a8dadc"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_marginStart="8dp"
+            android:layout_above="@id/tvOverview"
+            android:layout_toEndOf="@+id/ivPoster"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:fontFamily="sans-serif-black"
+            android:textColor="#f1faee"
+            android:textSize="24sp"
+            android:textStyle="italic"
+            tools:text="Onward" />
+
+        <View android:id="@+id/separator2"
+            android:background="#a8dadc"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toEndOf="@+id/tvTitle"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <RatingBar
+        android:id="@+id/rbVoteAverage"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:numStars="5"
+        android:progressTint="#457b9d"
+        android:stepSize="0.5" />
+
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/tvOverview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rbVoteAverage"
@@ -19,49 +72,31 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
-        android:fontFamily="sans-serif-black"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#FFFFFF"
-        tools:text="Title" />
-
-    <RatingBar
-        android:id="@+id/rbVoteAverage"
-        style="@style/Widget.AppCompat.RatingBar.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ivBackdrop"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:numStars="5"
-        android:progressTint="#ffba08"
-        android:stepSize="0.5" />
-
-    <TextView
-        android:id="@+id/tvOverview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTitle"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#FFFFFF"
+        android:textColor="#f1faee"
         tools:text="Overview" />
 
     <ImageView
         android:id="@+id/ivBackdrop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
-        android:scaleType="fitXY"
         android:adjustViewBounds="true"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:scaleType="fitXY"
+        tools:srcCompat="@drawable/flicks_backdrop_placeholder" />
+
+    <ImageView
+        android:id="@+id/ivPlayButton"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="95dp"
+        android:adjustViewBounds="true"
+        android:alpha=".8"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/playbutton" />
+
 </RelativeLayout>
